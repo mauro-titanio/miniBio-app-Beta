@@ -1,0 +1,31 @@
+<div class="bg-colored-img">
+    <div class="container py-4 px-4">
+        <div class="row justify-content-center py-4">
+            <div class="col-lg-6 col-md-8 col-sm-12 text-center">
+                <div class="image-container p-3 m-auto">
+                    <img class="rounded-circle mx-auto profile-img shadow border border-primary" src="https://picsum.photos/200" alt="" />
+                </div>
+                <div class="decription-container">
+                    <h2>{{minibio.title}}</h2>
+                    <p>{{minibio.description}}</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-12 col-sm-12 list-container">
+                        <ul class="list-group">
+                            <li class="list-group-item my-2 shadow-sm pt-4 bg-glass" *ngFor="let link of activeLinks">
+                                <a [href]="link.link_url" target="_blank">
+                                    <div class="row">
+                                        <div class="item-right text-left">
+                                            <p>{{link.label}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

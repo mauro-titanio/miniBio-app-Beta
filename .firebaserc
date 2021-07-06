@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "minibio-linktree": {
+      "hosting": {
+        "minibio-app": [
+          "minibio-linktree"
+        ]
+      }
+    }
+  }
+}

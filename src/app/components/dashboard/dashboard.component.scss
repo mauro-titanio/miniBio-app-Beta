@@ -1,0 +1,44 @@
+.profile-img:hover {
+    transition: 500ms ease;
+    opacity: 0.5 !important;
+}
+
+.links-card {
+    max-height: 75vh;
+    overflow: scroll;
+}
+
+.muted-card {
+    opacity: 0.5;
+}
+
+.preview-col {
+    width: 300px;
+    height: 70vh;
+}
+
+.movil-container {
+    display: block;
+    width: 100%;
+    height: 70vh;
+    background-image: url('https://i.imgur.com/OCmQ4nH.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.preview-container {
+    display: block;
+    margin-top: 100px;
+}
+
+.movil-display {
+    position: relative;
+    display: block;
+    top: 45px;
+    max-height: 405px;
+    border-radius: 0.5rem;
+}
+
+.movil-display::-webkit-scrollbar {
+    display: none;
+}
