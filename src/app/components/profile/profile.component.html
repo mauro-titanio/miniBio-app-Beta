@@ -3,7 +3,7 @@
         <div class="row justify-content-center py-4">
             <div class="col-lg-6 col-md-8 col-sm-12 text-center">
                 <div class="image-container p-3 m-auto">
-                    <img class="rounded-circle mx-auto profile-img shadow border border-primary w-25" [src]="minibio.image" alt="" />
+                    <img class="rounded-circle mx-auto profile-img shadow border border-primary" [src]="minibio.image" alt="" />
                 </div>
                 <div class="decription-container">
                     <h2>{{minibio.title}}</h2>
@@ -12,17 +12,17 @@
                 <div class="row justify-content-center">
                     <div class="col-6">
                         <div class="row justify-content-center fs-4">
-                            <div class="col-3">
-                                <a [href]="minibio.facebook"><i class="bi bi-facebook"></i></a>
+                            <div class="col-3" *ngIf="minibio.facebook != ''">
+                                <a [href]="minibio.facebook" target="_blank"><i class="bi bi-facebook"></i></a>
                             </div>
-                            <div class="col-3">
-                                <a [href]="minibio.instagram"> <i class="bi bi-instagram"></i></a>
+                            <div class="col-3" *ngIf="minibio.instagram != ''">
+                                <a [href]="minibio.instagram" target="_blank"> <i class="bi bi-instagram"></i></a>
                             </div>
-                            <div class="col-3">
-                                <a [href]="minibio.twitter"><i class="bi bi-twitter"></i></a>
+                            <div class="col-3" *ngIf="minibio.twitter != ''">
+                                <a [href]="minibio.twitter" target="_blank"><i class="bi bi-twitter"></i></a>
                             </div>
-                            <div class="col-3">
-                                <a [href]="minibio.github"><i class="bi bi-github"></i></a>
+                            <div class="col-3" *ngIf="minibio.github != ''">
+                                <a [href]="minibio.github" target="_blank"><i class="bi bi-github"></i></a>
                             </div>
                         </div>
                     </div>
