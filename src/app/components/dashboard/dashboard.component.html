@@ -22,17 +22,21 @@
 
 
 
-    <button (click)="createMinibio()" *ngIf="myMinibios.length === 0 && pageLoaded">Minibio</button>
 
-    <!--      
 
     <!--LINKS CONTAINER-->
+    <!--Loader-->
     <div class="row justify-content-center align-content-center vh-70" *ngIf="!pageLoaded">
         <div class="spinner-border text-primary mb-2" role="status"></div>
         <p class="text-center">Loading...</p>
     </div>
+    <div class="row justify-content-center align-content-center vh-70" *ngIf="myMinibios.length === 0 && pageLoaded">
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <button class="btn btn-primary big-btn w-100 py-3 shadow-sm" (click)="createMinibio()">Empezar</button>
+        </div>
+    </div>
     <div class="container py-5">
-        <div class="row justify-content-center" *ngIf="pageLoaded">
+        <div class="row justify-content-center" *ngIf="myMinibios.length >= 1 && pageLoaded">
             <div class="col-lg-6">
                 <div class="card bg-glass py-2 links-card">
                     <div class="container text-center py-3 px-5 mb-3">
