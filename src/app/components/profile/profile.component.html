@@ -3,11 +3,29 @@
         <div class="row justify-content-center py-4">
             <div class="col-lg-6 col-md-8 col-sm-12 text-center">
                 <div class="image-container p-3 m-auto">
-                    <img class="rounded-circle mx-auto profile-img shadow border border-primary" src="https://picsum.photos/200" alt="" />
+                    <img class="rounded-circle mx-auto profile-img shadow border border-primary w-25" src="https://picsum.photos/200" alt="" />
                 </div>
                 <div class="decription-container">
                     <h2>{{minibio.title}}</h2>
                     <p>{{minibio.description}}</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="row justify-content-center fs-4">
+                            <div class="col-3">
+                                <a [href]="minibio.facebook"><i class="bi bi-facebook"></i></a>
+                            </div>
+                            <div class="col-3">
+                                <a [href]="minibio.instagram"> <i class="bi bi-instagram"></i></a>
+                            </div>
+                            <div class="col-3">
+                                <a [href]="minibio.twitter"><i class="bi bi-twitter"></i></a>
+                            </div>
+                            <div class="col-3">
+                                <a [href]="minibio.github"><i class="bi bi-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 list-container">
@@ -27,5 +45,4 @@
             </div>
         </div>
     </div>
-
 </div>

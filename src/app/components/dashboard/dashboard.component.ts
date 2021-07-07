@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
 
@@ -15,7 +16,7 @@ import { MinibioCrudService } from 'src/app/shared/services/crud/minibio-crud.se
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-profileForm: FormGroup
+  profileForm: FormGroup
   formLink: FormGroup
   user: any
   userLinks: Array<Link> = []
@@ -39,15 +40,21 @@ profileForm: FormGroup
     title: '',
     theme: '',
     image: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    github: '',
   }
   hide = true
+  editSocial = false
 
   constructor(private authService: AuthService,
     private crudLinks: LinksCrudService,
     private crudMinibio: MinibioCrudService,
     private fb: FormBuilder,
-    private notifier: NotifierService) {
-
+    private notifier: NotifierService,
+    private storage: AngularFireStorage) {
+    //READ BIOS & LINKS
     setTimeout(() => {
       this.readMinibios()
       if (this.myMinibios.length === 0) {
@@ -59,9 +66,7 @@ profileForm: FormGroup
       this.pageLoaded = true
     }, 2800);
 
-
-
-
+    //FORMS
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.formLink = this.fb.group({
       label: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -69,22 +74,30 @@ profileForm: FormGroup
       active: [true, Validators.required]
     })
     this.profileForm = this.fb.group({
-      description: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      title: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      theme: ['', Validators.required],
-      image: ['', Validators.required]
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      theme: ['claro', Validators.required],
+      image: [''],
+      facebook: ['', Validators.pattern(reg)],
+      instagram: ['', Validators.pattern(reg)],
+      twitter: ['', Validators.pattern(reg)],
+      github: ['', Validators.pattern(reg)],
     })
-    
   }
+
+    //FILE UPLOAD
+
+
+
 
   get f() {
     return this.formLink.controls
   }
 
-  get j(){
+  get g() {
     return this.profileForm.controls
   }
- 
+
   createMinibio() {
     const minibio: Minibio = {
       id: '',
@@ -94,6 +107,10 @@ profileForm: FormGroup
       title: this.user.displayName,
       theme: 'claro',
       image: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      github: ''
     }
     this.crudMinibio.newMinibio(minibio, this.user.uid).then(success => {
       console.log("Post creado", success)
@@ -120,12 +137,56 @@ profileForm: FormGroup
         this.readAllLinks()
       }, 1000);
     }, 200);
+
   }
 
   getMinibio() {
     this.crudMinibio.getMinibio(this.user.uid, this.myMinibios[0].id).subscribe((data: any) => {
       this.miniBio = data.data()
       this.miniBio.id = data.id
+      this.profileForm.patchValue({
+        id: this.miniBio.id,
+        author: this.miniBio.author,
+        description: this.miniBio.description,
+        date: this.miniBio.date,
+        title: this.miniBio.title,
+        theme: this.miniBio.theme,
+        image: this.miniBio.image,
+        facebook: this.miniBio.facebook,
+        instagram: this.miniBio.instagram,
+        twitter: this.miniBio.twitter,
+        github: this.miniBio.github,
+      })
+    })
+  }
+
+  updateMinibio() {
+    let minibio: Minibio = {
+      id: this.miniBio.id,
+      author: this.miniBio.author,
+      description: this.g.description.value,
+      date: new Date().getTime(),
+      title: this.g.title.value,
+      theme: this.g.theme.value,
+      image: this.g.image.value,
+      facebook: this.g.facebook.value,
+      instagram: this.g.instagram.value,
+      twitter: this.g.twitter.value,
+      github: this.g.github.value,
+    }
+
+    if (this.profileForm.invalid) {
+      this.notifier.notify('error', 'No se ha podido actualizar');
+      console.log("error!")
+      return
+    }
+    this.crudMinibio.updateMinibio(this.user.uid, minibio, this.miniBio.id).then(success => {
+      this.notifier.notify('success', 'Enlace actualizado');
+      console.log("Post creado", success)
+      this.readMinibios()
+    }).catch(error => {
+      this.notifier.notify('error', 'Ha habido un error en el servidor');
+      console.log("Error", error)
     })
   }
 
@@ -227,7 +288,7 @@ profileForm: FormGroup
 
 
 
-  //Hay un error en el update
+
   updateLink(id: string) {
     let link: Link = {
       id: id,
@@ -242,7 +303,7 @@ profileForm: FormGroup
       console.log("error!")
       return
     }
-    this.crudLinks.updateLink(this.user.uid,this.myMinibios[0].id, link, id).then(success => {
+    this.crudLinks.updateLink(this.user.uid, this.myMinibios[0].id, link, id).then(success => {
       this.notifier.notify('success', 'Enlace actualizado');
       console.log("Post creado", success)
       this.readAllLinks()
@@ -268,7 +329,13 @@ profileForm: FormGroup
   }
 
 
-
+  showSocial() {
+    if (this.editSocial === false) {
+      this.editSocial = true
+    } else {
+      this.editSocial = false
+    }
+  }
 
 
 }

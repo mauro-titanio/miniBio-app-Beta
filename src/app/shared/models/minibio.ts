@@ -5,6 +5,10 @@ export interface Minibio {
     date: number;
     title: string;
     theme: string;
-    image: string
+    image: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    github: string;
 }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Link } from '../../models/link';
+import { Minibio } from '../../models/minibio';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -24,7 +25,7 @@ getMinibio(id:string,minibioID: string ){
   return this.fireStore.collection('users').doc(id).collection('minibio').doc(minibioID).get()
 }
 //Modificar un link
-updateMinibio(userID:string, data:Link, minibioID: string){
+updateMinibio(userID:string, data:Minibio, minibioID: string){
   return this.fireStore.collection('users').doc(userID).collection('minibio').doc(minibioID).update(data)
 }
 //Eliminar un link

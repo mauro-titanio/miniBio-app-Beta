@@ -78,7 +78,7 @@
                             <div class="container px-0 movil-display overflow-scroll">
                                 <div class="container image-container text-center d-block">
                                     <img width="60px" class="rounded-circle border border-2 border-primary  mx-auto" src="{{ user.photoURL }}" alt="User profile image" />
-                                    <h5 class="mb-0 mt-1">{{user.displayName}}</h5>
+                                    <h5 class="mb-0 mt-1">{{miniBio.title}}</h5>
                                     <small>{{miniBio.description}}</small>
                                 </div>
                                 <div class="links-preview mt-4">
@@ -212,16 +212,10 @@
 
 
 <!---Modifica perfil-->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificaPerfil">
-    Launch demo modal
-  </button>
-
-<!-- Modal -->
 <div class="modal fade" id="modificaPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form [formGroup]="formLink">
+            <form [formGroup]="profileForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modifica tu perfil</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -230,15 +224,15 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="form-floating mb-3">
-                                <input formControlName="label" type="text" class="form-control" id="floatingInput" placeholder="placeholder" autocomplete="off" />
+                                <input formControlName="title" type="text" class="form-control" id="floatingInput" placeholder="placeholder" autocomplete="off" />
                                 <label for="floatingInput">Nombre<i class="bi bi-tag text-muted mx-2"></i></label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="form-floating">
-                                <input formControlName="linkUrl" type="url" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
+                            <div class="form-floating mb-3">
+                                <input formControlName="description" type="text" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
                                 <label for="floatingUrl ">Descripción<i class="bi bi-link-45deg text-muted mx-2"></i></label>
                             </div>
                         </div>
@@ -247,24 +241,65 @@
                         <div class="col-12">
                             <div class="mb-3 mx-2">
                                 <label for="formFileSm" class="form-label">Imagen de perfil</label>
-                                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                                <input class="form-control form-control-sm" id="formFileSm" type="file" formControlName="image">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <select class="form-select form-select mb-3" aria-label=".form-select-lg example">
-                                <option selected>Elige un tema</option>
-                                <option value="claro">Claro</option>
+                        <div class="col-6">
+                            <p>Tema:</p>
+                            <select class="form-select form-select mb-3" aria-label=".form-select-lg example" formControlName="theme">
+                                <option selected value="claro">Claro</option>
                                 <option value="oscuro">Oscuro</option>
-                                <option value="auto" data-bs-toggle="tooltip" >Automatico</option>
+                                <option value="auto">Automatico</option>
                               </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="mb-3 mx-2">
+                                <h6 (click)="showSocial()">Redes sociales <i class="bi bi-plus-circle mx-2 align-middle"></i></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" *ngIf="editSocial">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-floating mb-3">
+                                    <input formControlName="facebook" type="url" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
+                                    <label for="floatingUrl ">Facebook<i class="bi bi-facebook text-muted mx-2"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-floating mb-3">
+                                    <input formControlName="instagram" type="url" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
+                                    <label for="floatingUrl ">Instagram<i class="bi bi-instagram text-muted mx-2"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-floating mb-3">
+                                    <input formControlName="twitter" type="url" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
+                                    <label for="floatingUrl ">Twitter<i class="bi bi-twitter text-muted mx-2"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-floating mb-3">
+                                    <input formControlName="github" type="url" class="form-control" id="floatingUrl" placeholder="Enlace" autocomplete="off" />
+                                    <label for="floatingUrl ">Github<i class="bi bi-github text-muted mx-2"></i></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" (click)="updateMinibio()">Guardar</button>
                 </div>
             </form>
         </div>

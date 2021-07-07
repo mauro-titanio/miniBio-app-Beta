@@ -19,6 +19,10 @@ export class ProfileComponent implements OnInit {
     title: '',
     theme: '',
     image: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    github:''
   }
   userLinks: Array<Link> = []
   userId: string = ''

@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotifierModule } from 'angular-notifier';
 import { ProfileComponent } from './components/profile/profile.component';
+import {AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
 
 
@@ -30,18 +31,18 @@ import { ProfileComponent } from './components/profile/profile.component';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-
+    AngularFireStorageModule,
     NotifierModule.withConfig({
       position:{
         horizontal:{
           position: 'right'
         }
       }
-     
     }),
 
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    { provide: BUCKET, useValue: 'images' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

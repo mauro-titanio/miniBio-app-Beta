@@ -12,6 +12,11 @@ export class SignInComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    
+      if (this.authService.isLoggedIn()) {
+       this.router.navigate(['/dashboard'])
+      }
+    
   }
   login() {
     console.log("login")
@@ -21,6 +26,8 @@ export class SignInComponent implements OnInit {
       console.error("Error en el login")
     })
   }
+
+
 
 
 

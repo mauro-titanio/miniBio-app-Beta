@@ -3,6 +3,7 @@ export const environment = {
   firebase:{
   apiKey: "AIzaSyAeVyo62z1xHgEtui7AyXPal6Z7SB5kA3E",
   authDomain: "minibio-linktree.firebaseapp.com",
+  databaseURL: "https://minibio-linktree-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "minibio-linktree",
   storageBucket: "minibio-linktree.appspot.com",
   messagingSenderId: "79839099414",
