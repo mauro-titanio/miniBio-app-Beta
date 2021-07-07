@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
     description: '',
     date: 0,
     title: '',
+    theme: '',
+    image: '',
   }
   userLinks: Array<Link> = []
   userId: string = ''

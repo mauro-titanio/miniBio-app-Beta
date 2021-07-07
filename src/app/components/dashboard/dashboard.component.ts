@@ -15,7 +15,7 @@ import { MinibioCrudService } from 'src/app/shared/services/crud/minibio-crud.se
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+profileForm: FormGroup
   formLink: FormGroup
   user: any
   userLinks: Array<Link> = []
@@ -37,6 +37,8 @@ export class DashboardComponent implements OnInit {
     description: '',
     date: 0,
     title: '',
+    theme: '',
+    image: '',
   }
   hide = true
 
@@ -66,10 +68,23 @@ export class DashboardComponent implements OnInit {
       linkUrl: ['', [Validators.required, Validators.pattern(reg)]],
       active: [true, Validators.required]
     })
+    this.profileForm = this.fb.group({
+      description: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      title: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      theme: ['', Validators.required],
+      image: ['', Validators.required]
+    })
+    
   }
 
+  get f() {
+    return this.formLink.controls
+  }
 
-  
+  get j(){
+    return this.profileForm.controls
+  }
+ 
   createMinibio() {
     const minibio: Minibio = {
       id: '',
@@ -77,6 +92,8 @@ export class DashboardComponent implements OnInit {
       description: '',
       date: new Date().getTime(),
       title: this.user.displayName,
+      theme: 'claro',
+      image: '',
     }
     this.crudMinibio.newMinibio(minibio, this.user.uid).then(success => {
       console.log("Post creado", success)
@@ -123,9 +140,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  get f() {
-    return this.formLink.controls
-  }
+
 
 
 

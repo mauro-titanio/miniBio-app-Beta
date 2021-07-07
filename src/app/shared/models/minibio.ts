@@ -4,5 +4,7 @@ export interface Minibio {
     description: string;
     date: number;
     title: string;
+    theme: string;
+    image: string
 }
 
