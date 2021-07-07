@@ -77,13 +77,31 @@
                         <div class="col-lg-12">
                             <div class="container px-0 movil-display overflow-scroll">
                                 <div class="container image-container text-center d-block">
-                                    <img width="60px" class="rounded-circle border border-2 border-primary  mx-auto" src="{{ user.photoURL }}" alt="User profile image" />
-                                    <h5 class="mb-0 mt-1">{{miniBio.title}}</h5>
-                                    <small>{{miniBio.description}}</small>
+                                    <img width="60px" height="60px" class="rounded-circle border border-2 border-primary  mx-auto" [src]="miniBio.image" alt="User profile image" />
+                                    <h5 class="mb-0 mt-3 text-reduce">{{miniBio.title}}</h5>
+                                    <p class="text-reduce-doble">{{miniBio.description}}</p>
                                 </div>
-                                <div class="links-preview mt-4">
+                                <div class="row justify-content-center mt-0">
+                                    <div class="col-8">
+                                        <div class="row justify-content-center">
+                                            <div class="col-3 mx-auto" *ngIf="miniBio.facebook != ''">
+                                                <a [href]="miniBio.facebook" target="_blank"><i class="bi bi-facebook text-reduce mx-auto"></i></a>
+                                            </div>
+                                            <div class="col-3 mx-auto" *ngIf="miniBio.instagram != ''">
+                                                <a [href]="miniBio.instagram" target="_blank"> <i class="bi bi-instagram text-reduce mx-auto"></i></a>
+                                            </div>
+                                            <div class="col-3 mx-auto" *ngIf="miniBio.twitter != ''">
+                                                <a [href]="miniBio.twitter" target="_blank"><i class="bi bi-twitter text-reduce mx-auto"></i></a>
+                                            </div>
+                                            <div class="col-3 mx-auto" *ngIf="miniBio.github != ''">
+                                                <a [href]="miniBio.github" target="_blank"><i class="bi bi-github text-reduce mx-auto"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="links-preview mt-3">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item text-center mb-2" *ngFor="let linkActive of linksActives">{{linkActive.label}}</li>
+                                        <li class="list-group-item text-center mb-2 text-reduce" *ngFor="let linkActive of linksActives">{{linkActive.label}}</li>
                                     </ul>
                                 </div>
                             </div>
