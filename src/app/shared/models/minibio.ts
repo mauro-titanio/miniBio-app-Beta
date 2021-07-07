@@ -6,9 +6,9 @@ export interface Minibio {
     title: string;
     theme: string;
     image: string;
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    github: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    github?: string;
 }
 

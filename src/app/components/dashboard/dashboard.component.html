@@ -240,8 +240,10 @@
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="mb-3 mx-2">
-                                <label for="formFileSm" class="form-label">Imagen de perfil</label>
-                                <input class="form-control form-control-sm" id="formFileSm" type="file" formControlName="image">
+                                <input type="file" (change)="uploadFile($event)" />
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percent + '%' }" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

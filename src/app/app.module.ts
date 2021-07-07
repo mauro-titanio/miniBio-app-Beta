@@ -42,7 +42,7 @@ import {AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
   ],
   providers: [AuthService,
-    { provide: BUCKET, useValue: 'images' }],
+    { provide: BUCKET, useValue: environment.firebase.storageBucket }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

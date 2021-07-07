@@ -25,8 +25,9 @@ getMinibio(id:string,minibioID: string ){
   return this.fireStore.collection('users').doc(id).collection('minibio').doc(minibioID).get()
 }
 //Modificar un link
-updateMinibio(userID:string, data:Minibio, minibioID: string){
-  return this.fireStore.collection('users').doc(userID).collection('minibio').doc(minibioID).update(data)
+updateMinibio(userID:string, data:any,  minibioID: string){
+  console.log(data)
+  return this.fireStore.collection('users').doc(userID).collection('minibio').doc(minibioID).set(data)
 }
 //Eliminar un link
 deleteMinibio(userID:string, minibioID:string){

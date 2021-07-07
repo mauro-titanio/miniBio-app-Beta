@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
-
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { Link } from 'src/app/shared/models/link';
 import { Minibio } from 'src/app/shared/models/minibio';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { LinksCrudService } from 'src/app/shared/services/crud/links-crud.service';
 import { MinibioCrudService } from 'src/app/shared/services/crud/minibio-crud.service';
+
 
 
 @Component({
@@ -47,6 +49,12 @@ export class DashboardComponent implements OnInit {
   }
   hide = true
   editSocial = false
+  uploadPercent: Observable<any> | undefined;
+  downloadURL: Observable<any> | undefined;
+  percent: any
+
+
+
 
   constructor(private authService: AuthService,
     private crudLinks: LinksCrudService,
@@ -85,8 +93,29 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-    //FILE UPLOAD
-
+  //FILE UPLOAD
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+    const filePath = Date.now() + file.name;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file)
+    // observe percentage changes
+    task.percentageChanges().subscribe(number => {
+      this.percent = number!
+    })
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL()
+        this.downloadURL.subscribe(data => {
+          this.profileForm.patchValue({
+            image: data
+          })
+        })
+      })
+    )
+      .subscribe()
+  }
 
 
 
@@ -174,7 +203,7 @@ export class DashboardComponent implements OnInit {
       twitter: this.g.twitter.value,
       github: this.g.github.value,
     }
-
+   
     if (this.profileForm.invalid) {
       this.notifier.notify('error', 'No se ha podido actualizar');
       console.log("error!")
